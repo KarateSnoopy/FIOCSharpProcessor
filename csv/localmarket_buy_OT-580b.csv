@@ -1,0 +1,6 @@
+ContractNaturalId,PlanetNaturalId,PlanetName,CreatorCompanyName,CreatorCompanyCode,MaterialName,MaterialTicker,MaterialCategory,MaterialWeight,MaterialVolume,MaterialAmount,Price,PriceCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+90541,OT-580b,Montem,Trade And Craft,TAC,rations,RAT,3f047ec3043bdd795fd7272d6be98799,0.20999999344348907,0.10000000149011612,1040,73320,NCC,3,1664007152908,1664439152908,C
+90540,OT-580b,Montem,Trade And Craft,TAC,drinkingWater,DW,3f047ec3043bdd795fd7272d6be98799,0.10000000149011612,0.10000000149011612,1040,55588,NCC,3,1664007143221,1664439143221,C
+90523,OT-580b,Montem,Compound,GAIN,carbon,C,ef1d03e7ef924395c2173fc4e4ee8a6f,2.25,1,222,88800,NCC,3,1663953144345,1664817144345,PENDING
+90370,OT-580b,Montem,Waffles.inc,WINC,carbon,C,ef1d03e7ef924395c2173fc4e4ee8a6f,2.25,1,1000,410000,NCC,3,1663675543661,1664107543661,C
+

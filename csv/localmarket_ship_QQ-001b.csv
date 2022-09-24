@@ -1,0 +1,3 @@
+ContractNaturalId,PlanetNaturalId,PlanetName,OriginPlanetNaturalId,OriginPlanetName,DestinationPlanetNaturalId,DestinationPlanetName,CargoWeight,CargoVolume,CreatorCompanyName,CreatorCompanyCode,PayoutPrice,PayoutCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+16453,QQ-001b,Circe,QQ-001b,Circe,OT-580b,Montem,434,200,Swanada Inc.,OGPK,12000,NCC,3,1664010091083,1664442091083,B
+

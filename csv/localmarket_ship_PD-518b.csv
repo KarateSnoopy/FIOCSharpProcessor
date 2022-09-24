@@ -1,0 +1,2 @@
+ContractNaturalId,PlanetNaturalId,PlanetName,OriginPlanetNaturalId,OriginPlanetName,DestinationPlanetNaturalId,DestinationPlanetName,CargoWeight,CargoVolume,CreatorCompanyName,CreatorCompanyCode,PayoutPrice,PayoutCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+

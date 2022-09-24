@@ -1,0 +1,7 @@
+ContractNaturalId,PlanetNaturalId,PlanetName,OriginPlanetNaturalId,OriginPlanetName,DestinationPlanetNaturalId,DestinationPlanetName,CargoWeight,CargoVolume,CreatorCompanyName,CreatorCompanyCode,PayoutPrice,PayoutCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+8379,AM-783c,Ementior,AM-783c,Ementior,AM-783b,Gallus,878.5,350,Saltu,SLTU,2000,CIS,3,1663822793877,1664686793877,F
+8378,AM-783c,Ementior,AM-783c,Ementior,AM-783b,Gallus,878.5,350,Saltu,SLTU,2000,CIS,3,1663822792917,1664686792917,F
+8296,AM-783c,Ementior,AM-783c,Ementior,AM-783b,Gallus,270,100,Juniper Galactic Corp,JGC,1350,CIS,2,1663444091280,1664308091280,A
+8295,AM-783c,Ementior,AM-783c,Ementior,AM-783b,Gallus,270,100,Juniper Galactic Corp,JGC,1350,CIS,2,1663444090520,1664308090520,A
+8286,AM-783c,Ementior,AM-783c,Ementior,AM-783b,Gallus,499.489990234375,199,Saltu,SLTU,1000,CIS,3,1663435692367,1664299692367,F
+

@@ -1,0 +1,3 @@
+ContractNaturalId,PlanetNaturalId,PlanetName,CreatorCompanyName,CreatorCompanyCode,MaterialName,MaterialTicker,MaterialCategory,MaterialWeight,MaterialVolume,MaterialAmount,Price,PriceCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+16359,QQ-001b,Circe,Fenix Wings,FEW,halite,HAL,79f3917448cc4f6034ece865c41aea34,2.1700000762939453,1,40,15000,NCC,3,1663134582023,1664344182023,PENDING
+

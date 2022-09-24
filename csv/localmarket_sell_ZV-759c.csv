@@ -1,0 +1,4 @@
+ContractNaturalId,PlanetNaturalId,PlanetName,CreatorCompanyName,CreatorCompanyCode,MaterialName,MaterialTicker,MaterialCategory,MaterialWeight,MaterialVolume,MaterialAmount,Price,PriceCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+33441,ZV-759c,Deimos,Morrison,MRSN,aluminium,AL,cae48680d4c4e6f98d593a8c3778cb56,2.700000047683716,1,54,24300,AIC,1,1663980146296,1664239346296,PENDING
+33431,ZV-759c,Deimos,Perestroika Industries,PERE,aluminium,AL,cae48680d4c4e6f98d593a8c3778cb56,2.700000047683716,1,200,96000,AIC,3,1663964930080,1664310530080,PENDING
+

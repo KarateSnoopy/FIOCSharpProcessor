@@ -1,0 +1,3 @@
+ContractNaturalId,PlanetNaturalId,PlanetName,OriginPlanetNaturalId,OriginPlanetName,DestinationPlanetNaturalId,DestinationPlanetName,CargoWeight,CargoVolume,CreatorCompanyName,CreatorCompanyCode,PayoutPrice,PayoutCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+33432,ZV-759c,Deimos,ANT,Antares Station,ZV-759c,Deimos,58,29,Atlas,AT,150,AIC,1,1663964981554,1664224181554,PENDING
+

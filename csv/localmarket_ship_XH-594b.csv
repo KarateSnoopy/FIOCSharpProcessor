@@ -1,0 +1,6 @@
+ContractNaturalId,PlanetNaturalId,PlanetName,OriginPlanetNaturalId,OriginPlanetName,DestinationPlanetNaturalId,DestinationPlanetName,CargoWeight,CargoVolume,CreatorCompanyName,CreatorCompanyCode,PayoutPrice,PayoutCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+6700,XH-594b,Kiruna,XH-594b,Kiruna,BEN,Benten Station,249.5500030517578,115,Vanguard MFG,VAFG,1000,NCC,5,1663900700819,1664332700819,PENDING
+6699,XH-594b,Kiruna,XH-594b,Kiruna,BEN,Benten Station,249.5500030517578,115,Vanguard MFG,VAFG,1000,NCC,5,1663900699894,1664332699894,PENDING
+6698,XH-594b,Kiruna,XH-594b,Kiruna,BEN,Benten Station,249.5500030517578,115,Vanguard MFG,VAFG,1000,NCC,5,1663900698872,1664332698872,PENDING
+6697,XH-594b,Kiruna,XH-594b,Kiruna,BEN,Benten Station,249.5500030517578,115,Vanguard MFG,VAFG,1000,NCC,5,1663900697931,1664332697931,PENDING
+
