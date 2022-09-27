@@ -1,7 +1,6 @@
 ContractNaturalId,PlanetNaturalId,PlanetName,CreatorCompanyName,CreatorCompanyCode,MaterialName,MaterialTicker,MaterialCategory,MaterialWeight,MaterialVolume,MaterialAmount,Price,PriceCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
-7327,ZV-896b,Harmonia,PaxMagellanic,MAGE,carbon,C,ef1d03e7ef924395c2173fc4e4ee8a6f,2.25,1,50,21000,AIC,3,1664001468550,1664260668550,PENDING
+7350,ZV-896b,Harmonia,Terrascape,TER,hydrocarbonPlants,HCP,510e7751c0eb6a51fd0fa73565365d1c,0.800000011920929,1,100,15000,AIC,3,1664131240620,1664995240620,PENDING
 7326,ZV-896b,Harmonia,PaxMagellanic,MAGE,carbon,C,ef1d03e7ef924395c2173fc4e4ee8a6f,2.25,1,50,21000,AIC,3,1664001464753,1664260664753,PENDING
 7325,ZV-896b,Harmonia,PaxMagellanic,MAGE,carbon,C,ef1d03e7ef924395c2173fc4e4ee8a6f,2.25,1,50,21000,AIC,3,1664001378641,1664260578641,PENDING
 7324,ZV-896b,Harmonia,PaxMagellanic,MAGE,carbon,C,ef1d03e7ef924395c2173fc4e4ee8a6f,2.25,1,50,21000,AIC,3,1664001376965,1664260576965,PENDING
-7323,ZV-896b,Harmonia,Aratora Works,AW,cottonRaw,RCO,510e7751c0eb6a51fd0fa73565365d1c,0.949999988079071,1,28,18255,AIC,3,1663999553190,1664085953190,PENDING
 

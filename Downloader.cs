@@ -39,7 +39,7 @@ class Downloader
             msg = msg.Replace("\r", "");
             var lines = msg.Split("\n");
 
-            Console.WriteLine($"Writing {filePath}");
+            Console.WriteLine($"Caching FIO data to {filePath}");
             File.WriteAllLines(filePath, lines);
         }
     }

@@ -1,6 +1,2 @@
 ContractNaturalId,PlanetNaturalId,PlanetName,CreatorCompanyName,CreatorCompanyCode,MaterialName,MaterialTicker,MaterialCategory,MaterialWeight,MaterialVolume,MaterialAmount,Price,PriceCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
-6831,RC-040b,Malahat,Inconspicuous Fuel Company,SHHH,titanium,TI,cae48680d4c4e6f98d593a8c3778cb56,4.5,1,48,57000,NCC,20,1663936340741,1664541140741,F
-6828,RC-040b,Malahat,Inconspicuous Fuel Company,SHHH,steel,STL,cae48680d4c4e6f98d593a8c3778cb56,7.849999904632568,1,44,42000,NCC,20,1663936251733,1664541051733,F
-6792,RC-040b,Malahat,Zealous Inc,ZEAL,bodyScanner,BSC,19d621bb3f297c0425e34cdf0b138ece,0.10000000149011612,0.10000000149011612,9,258773,NCC,20,1662261026652,1664853026652,D
-6791,RC-040b,Malahat,Zealous Inc,ZEAL,bodyScanner,BSC,19d621bb3f297c0425e34cdf0b138ece,0.10000000149011612,0.10000000149011612,9,258773,NCC,20,1662261025633,1664853025633,D
 

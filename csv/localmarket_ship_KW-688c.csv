@@ -1,10 +1,10 @@
 ContractNaturalId,PlanetNaturalId,PlanetName,OriginPlanetNaturalId,OriginPlanetName,DestinationPlanetNaturalId,DestinationPlanetName,CargoWeight,CargoVolume,CreatorCompanyName,CreatorCompanyCode,PayoutPrice,PayoutCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
-17301,KW-688c,Etherwind,BEN,Benten Station,KW-688c,Etherwind,177,30,"Pankorbo Provisions, Inc.",PAPI,1770,CIS,3,1663850572371,1664282572371,PENDING
+17397,KW-688c,Etherwind,KW-688c,Etherwind,UV-796b,Proxion,250,250,elder dominon,WIP,2500,CIS,3,1664189630160,1664448830160,PENDING
+17393,KW-688c,Etherwind,KW-688c,Etherwind,UV-796b,Proxion,250,250,elder dominon,WIP,2500,CIS,3,1664157474172,1664416674172,PENDING
 17256,KW-688c,Etherwind,KW-688c,Etherwind,XH-594b,Kiruna,247.5,110,Cox Industries,COXI,3000,CIS,3,1663767091902,1664631091902,PENDING
 17255,KW-688c,Etherwind,KW-688c,Etherwind,XH-594b,Kiruna,247.5,110,Cox Industries,COXI,3000,CIS,3,1663767090530,1664631090530,PENDING
 17254,KW-688c,Etherwind,KW-688c,Etherwind,XH-594b,Kiruna,247.5,110,Cox Industries,COXI,3000,CIS,3,1663767089573,1664631089573,PENDING
 17253,KW-688c,Etherwind,KW-688c,Etherwind,XH-594b,Kiruna,247.5,110,Cox Industries,COXI,3000,CIS,3,1663767088684,1664631088684,PENDING
-17252,KW-688c,Etherwind,KW-688c,Etherwind,UV-351c,Umbra,247.5,110,Cox Industries,COXI,2800,CIS,3,1663767071855,1664631071855,PENDING
 17251,KW-688c,Etherwind,KW-688c,Etherwind,UV-351c,Umbra,247.5,110,Cox Industries,COXI,2800,CIS,3,1663767070543,1664631070543,PENDING
 17076,KW-688c,Etherwind,KW-688c,Etherwind,KW-020c,Milliways,500,500,Glitch Free Group,GFG,2500,CIS,5,1663284660223,1665876660223,PENDING
 

@@ -1,10 +1,4 @@
 ContractNaturalId,PlanetNaturalId,PlanetName,OriginPlanetNaturalId,OriginPlanetName,DestinationPlanetNaturalId,DestinationPlanetName,CargoWeight,CargoVolume,CreatorCompanyName,CreatorCompanyCode,PayoutPrice,PayoutCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
-78392,UV-796b,Proxion,UV-796b,Proxion,KW-688c,Etherwind,160,200,Cox Industries,COXI,2000,CIS,3,1663984428484,1664157228484,PENDING
-78388,UV-796b,Proxion,UV-796b,Proxion,XH-594a,Libertas,70,70,elder dominon,WIP,700,CIS,3,1663984204883,1664243404883,PENDING
-78383,UV-796b,Proxion,UV-796b,Proxion,XH-329a,Uponor,225,100,elder dominon,WIP,1250,CIS,3,1663984095062,1664416095062,PENDING
-78382,UV-796b,Proxion,UV-796b,Proxion,XH-329a,Uponor,225,100,elder dominon,WIP,1250,CIS,3,1663984094124,1664416094124,PENDING
-78381,UV-796b,Proxion,UV-796b,Proxion,XH-329a,Uponor,225,100,elder dominon,WIP,1250,CIS,3,1663984093529,1664416093529,PENDING
-78411,UV-796b,Proxion,UV-796b,Proxion,KW-688c,Etherwind,2,2.5,wehelp,WH1,100,CIS,3,1664007011677,1664439011677,PENDING
-78410,UV-796b,Proxion,UV-796b,Proxion,KW-688c,Etherwind,2.5,2.5,wehelp,WH1,100,CIS,3,1664007002152,1664439002152,PENDING
-78404,UV-796b,Proxion,UV-796b,Proxion,UV-351c,Umbra,4,2,Icarus Legion,ICL,100,CIS,1,1663996107574,1664168907574,A
+78626,UV-796b,Proxion,UV-796b,Proxion,XH-594a,Libertas,245.6999969482422,90,Icarus Legion,ICL,2000,CIS,3,1664154467985,1664586467985,F
+78625,UV-796b,Proxion,UV-796b,Proxion,XH-594a,Libertas,245.6999969482422,90,Icarus Legion,ICL,2000,CIS,3,1664154456456,1664586456456,F
 

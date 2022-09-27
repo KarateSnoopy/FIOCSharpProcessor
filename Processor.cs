@@ -1,4 +1,7 @@
-﻿class Processor
+﻿using System.Collections.Generic;
+using System.Linq;
+
+class Processor
 {
     enum LogEnum
     {
@@ -21,10 +24,11 @@
             MarketIndex mi = (MarketIndex)i;
             CalcMarketSize(mi, gs, pd, ref csvLines);
         }
+        Console.WriteLine($"Writing {Path.Combine(outPath, $"MarketSize.csv")}");
         File.WriteAllLines(Path.Combine(outPath, $"MarketSize.csv"), csvLines);
     }
 
-    private static void CalcBuildingNameMap(GameState gs, string dirPath)
+    private static void CalcBuildingNameMap(GameState gs, string outPath)
     {
         List<string> csvBuildingTickets = new List<string>();
         csvBuildingTickets.Add("Building Name, Building Ticket");
@@ -32,7 +36,8 @@
         {
             csvBuildingTickets.Add($"{x.Name}, {x.Ticker}");
         }
-        File.WriteAllLines(Path.Combine(dirPath, $"buildingNameMap.csv"), csvBuildingTickets);
+        Console.WriteLine($"Writing {Path.Combine(outPath, $"buildingNameMap.csv")}");
+        File.WriteAllLines(Path.Combine(outPath, $"buildingNameMap.csv"), csvBuildingTickets);
     }
 
     private static void CalcNumLocalMarketOrdersPerPlanet(GameState gs, string outPath)
@@ -78,6 +83,7 @@
         {
             csvLines.Add($"{market.name}, {market.value}");
         }
+        Console.WriteLine($"Writing {Path.Combine(outPath, $"LocalMarkets-NumOrders.csv")}");
         File.WriteAllLines(Path.Combine(outPath, $"LocalMarkets-NumOrders.csv"), csvLines);
     }
 
@@ -182,6 +188,7 @@
         {
             csvLines.Add($"{n.PlanetNaturalId}");
         }
+        Console.WriteLine($"Writing {Path.Combine(outPath, $"planetsNearMarkets.csv")}");
         File.WriteAllLines(Path.Combine(outPath, $"planetsNearMarkets.csv"), csvLines);
     }
 
@@ -260,7 +267,7 @@
         for (int i = 0; i < receipeNode.Count; i++)
         {
             var receipe = receipeNode[i];
-            if (receipe.Profit > 0 && receipe.CostOutputToSell > 0 && receipe.CostInputToMake >= 0)
+            if (receipe.Profit > 0 && receipe.TotalCostOutputToSell > 0 && receipe.CostInputToMake >= 0)
             {
                 receiptForProfit.Add(receipe);
             }
@@ -283,7 +290,7 @@
             var building = pd.buildingCosts.First(r => r.Building == receipe.BuildingTicker);
             float hoursToMake = ConvertMsToHours(receipe.TimeMs);
             csvReceipeLines.Add(
-                $"{mi}, {receipe.RecipeName}, {receipe.CostInputToMake:0}, {receipe.CostInputToBuy:0}, {receipe.CostOutputToSell:0}, {receipe.Profit:0}, {receipe.ProfitPerHour:0}, {building.Building}, " +
+                $"{mi}, {receipe.RecipeName}, {receipe.CostInputToMake:0}, {receipe.CostInputToBuy:0}, {receipe.TotalCostOutputToSell:0}, {receipe.Profit:0}, {receipe.ProfitPerHour:0}, {building.Building}, " +
                 $"{building.Pioneers}, {building.Settlers}, {building.Technicians}, {building.Engineers}, {building.Scientists}, {building.CostToBuy}, {buildingStarter}, {hoursToMake}, {receipe.MaxProfitOnMarket:0}");
         }
 
@@ -364,12 +371,12 @@
                 }
             }
 
-            receipe.CostOutputToSell = 0.0f;
+            receipe.TotalCostOutputToSell = 0.0f;
             foreach (var item in receipe.Outputs)
             {
                 float price = pd.sellPrices[(int)mi][item.Ticker];
                 float priceAmt = price * item.Amount;
-                receipe.CostOutputToSell += priceAmt;
+                receipe.TotalCostOutputToSell += priceAmt;
             }
         }
 
@@ -377,7 +384,7 @@
         {
             var receipe = receipeNodes[i];
             UpdateCostToMakeReceipe(mi, receipeNodes, pd, receipe);
-            receipe.Profit = receipe.CostOutputToSell - receipe.CostInputToMake;
+            receipe.Profit = receipe.TotalCostOutputToSell - receipe.CostInputToMake;
             float numHours = ConvertMsToHours(receipe.TimeMs);
             receipe.ProfitPerHour = receipe.Profit / numHours;
             receipe.MaxProfitOnMarket = CalcMaxProfitOnMarket(mi, gs, pd, receipe);
@@ -726,6 +733,374 @@
         csvLines.Add($"{mi}, {totalSellPrice / 1000.0f / 1000.0f:0.000}, {totalBuyPrice / 1000.0f / 1000.0f:0.000}");
     }
 
+    private static void UpdateSubReceipesHelper(
+        ReceipeNodeItem outputItem,
+        float numHoursPerOutput,
+        float hoursPerOutputUnit,
+        ReceipeNode parentReceipe,
+        ReceipeNode inputReceipe,
+        int desiredInputAmount,
+        GameState gs,
+        List<ReceipeNode> receipeNodes,
+        ProcessedData pd)
+    {
+        string receipeName = parentReceipe.RecipeName;
+        receipeName = receipeName.Replace(inputReceipe.Outputs[0].Ticker, $"[{inputReceipe.RecipeName}]");
+        if (inputReceipe.Inputs.Count == 0)
+        {
+            float inputReceipeNumHours = ConvertMsToHours(inputReceipe.TimeMs);
+            float inputReceipeHoursPerInputUnit = inputReceipeNumHours / inputReceipe.Outputs[0].Amount;
+
+            pd.makeCostNodes2.Add(new MakeCostNode2()
+            {
+                RecipeName = receipeName,
+                OutputTicker = outputItem.Ticker,
+                OutputAmount = outputItem.Amount,
+                OutputSellPrice = outputItem.OutputSellPrice,
+                InputItemTicker = inputReceipe.Outputs[0].Ticker,
+                InputItemAmount = inputReceipe.Outputs[0].Amount,
+                CostToBuyInput = inputReceipe.CostInputToBuy,
+                HoursToMake = Math.Max(
+                    inputReceipeHoursPerInputUnit * desiredInputAmount,
+                    numHoursPerOutput
+                    )
+            });
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    //    for (int iInput = 0; iInput < receipe.Inputs.Count; iInput++)
+    //    {
+    //        var inputItem = receipe.Inputs[iInput];
+    //        foreach (var inputReceipe in inputItem.inputReceipes)
+    //        {
+    //            float inputReceipeNumHours = ConvertMsToHours(inputReceipe.TimeMs);
+    //            float inputReceipeHoursPerInputUnit = numHoursPerOutput / inputReceipe.Outputs[0].Amount;
+    //            string receipeName = receipe.RecipeName;
+    //            receipeName = receipeName.Replace(inputItem.Ticker, $"[{inputReceipe.RecipeName}]");
+    //            if (inputReceipe.Inputs.Count == 0)
+    //            {
+    //                pd.makeCostNodes2.Add(new MakeCostNode2()
+    //                {
+    //                    RecipeName = receipeName,
+    //                    OutputTicker = outputItem.Ticker,
+    //                    OutputAmount = outputItem.Amount,
+    //                    OutputSellPrice = outputItem.OutputSellPrice,
+    //                    InputItemTicker = inputItem.Ticker,
+    //                    InputItemAmount = inputItem.Amount,
+    //                    CostToBuyInput = inputReceipe.CostInputToBuy,
+    //                    HoursToMake = Math.Max(
+    //                        inputReceipeHoursPerInputUnit * inputItem.Amount,
+    //                        numHoursPerOutput
+    //                        )
+    //                });
+    //            }
+    //            else
+    //            {
+    //                foreach (var inputInput in inputReceipe.Inputs)
+    //                {
+    //                    foreach (var inputInputReceipe in inputInput.inputReceipes)
+    //                    {
+    //                        UpdateSubReceipesHelper(outputItem, numHoursPerOutput, hoursPerOutputUnit, inputInputReceipe, gs, receipeNodes, pd);
+    //                        //float inputInputReceipeNumHours = ConvertMsToHours(inputInputReceipe.TimeMs);
+    //                        //float inputInputReceipeHoursPerInputUnit = numHoursPerOutput / inputInputReceipe.Outputs[0].Amount;
+    //                        //receipeName = receipeName.Replace(inputItem.Ticker, $"[{inputReceipe.RecipeName}]");
+    //                        //if (inputReceipe.Inputs.Count == 0)
+    //                        //{
+    //                        //    pd.makeCostNodes2.Add(new MakeCostNode2()
+    //                        //    {
+    //                        //        RecipeName = receipeName,
+    //                        //        OutputTicker = outputItem.Ticker,
+    //                        //        OutputAmount = outputItem.Amount,
+    //                        //        OutputSellPrice = outputItem.OutputSellPrice,
+    //                        //        InputItemTicker = inputItem.Ticker,
+    //                        //        InputItemAmount = inputItem.Amount,
+    //                        //        CostToBuyInput = inputReceipe.CostInputToBuy,
+    //                        //        HoursToMake = Math.Max(
+    //                        //            inputReceipeHoursPerInputUnit * inputItem.Amount,
+    //                        //            numHoursPerOutput
+    //                        //            )
+    //                        //    });
+    //                        //}
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+
+    private static void UpdateSubReceipes(ReceipeNode receipe, GameState gs, List<ReceipeNode> receipeNodes, ProcessedData pd)
+    {
+        float numHoursPerOutput = ConvertMsToHours(receipe.TimeMs);
+        for (int iOutput = 0; iOutput < receipe.Outputs.Count; iOutput++)
+        {
+            var outputItem = receipe.Outputs[iOutput];
+            float hoursPerOutputUnit = numHoursPerOutput / outputItem.Amount;
+            for (int iInput = 0; iInput < receipe.Inputs.Count; iInput++)
+            {
+                var inputItem = receipe.Inputs[iInput];
+                foreach (var inputReceipe in inputItem.inputReceipes)
+                {
+                    UpdateSubReceipesHelper(
+                        outputItem,
+                        numHoursPerOutput,
+                        hoursPerOutputUnit,
+                        receipe,
+                        inputReceipe,
+                        inputItem.Amount,
+                        gs,
+                        receipeNodes,
+                        pd);
+                }
+            }
+        }
+    }
+
+    class CostTimeNode
+    {
+        public float cost;
+        public float timeMs;
+        public List<string> buildingsRequiredToMake = new();
+    }
+
+    private static CostTimeNode GetExpandedMakeCostsAndTime(ReceipeNode receipe, GameState gs, List<ReceipeNode> receipeNodes, ProcessedData pd)
+    {
+        CostTimeNode bestCostTimeNode = new CostTimeNode();
+        float numHoursPerOutput = ConvertMsToHours(receipe.TimeMs);
+        for (int iOutput = 0; iOutput < receipe.Outputs.Count; iOutput++)
+        {
+            var outputItem = receipe.Outputs[iOutput];
+            float hoursPerOutputUnit = numHoursPerOutput / outputItem.Amount;
+            if(receipe.Inputs.Count == 0)
+            {
+                bestCostTimeNode.cost = 1;
+                bestCostTimeNode.timeMs = 1;
+                bestCostTimeNode.buildingsRequiredToMake.Add("TEST");
+            }
+            else
+            {
+                for (int iInput = 0; iInput < receipe.Inputs.Count; iInput++)
+                {
+                    var inputItem = receipe.Inputs[iInput];
+
+                    foreach (var inputReceipe in inputItem.inputReceipes)
+                    {
+                        var costTime = GetExpandedMakeCostsAndTime(inputReceipe, gs, receipeNodes, pd);
+                        if (costTime.cost < bestCostTimeNode.cost)
+                        {
+                            bestCostTimeNode = costTime;
+                        }
+                    }
+
+                    inputItem.BestCostToMakeInput = bestCostTimeNode.cost;
+                    inputItem.BestTimeToMakeInputMs = bestCostTimeNode.timeMs;
+                    inputItem.BuildingsRequiredToMake = bestCostTimeNode.buildingsRequiredToMake;
+
+                    receipe.CostInputToMake += inputItem.BestCostToMakeInput;
+                }
+            }
+        }
+
+        return bestCostTimeNode;
+    }
+
+    private static List<ReceipeNode> GetExpandedReceipes(ReceipeNode receipe, GameState gs, ProcessedData pd)
+    {
+        List<ReceipeNode> expandedList = new();
+        expandedList.Add(receipe);
+        //Console.WriteLine($"Expanding {receipe.RecipeName}");
+
+        for (int iOutput = 0; iOutput < receipe.Outputs.Count; iOutput++)
+        {
+            var outputItem = receipe.Outputs[iOutput];
+            if (receipe.Inputs.Count == 0)
+            {
+                expandedList.Add(receipe);
+            }
+            else
+            {
+                for (int iInput = 0; iInput < receipe.Inputs.Count; iInput++)
+                {
+                    var inputItem = receipe.Inputs[iInput];
+                    foreach (var inputReceipe in inputItem.inputReceipes)
+                    {
+                        List<ReceipeNode> expandedListForInput = GetExpandedReceipes(inputReceipe, gs, pd);
+                        expandedList.AddRange(expandedListForInput);
+                    }
+                }
+            }
+        }
+
+        expandedList = expandedList.Distinct().ToList();
+        return expandedList;
+    }
+
+    private static void CalcRecipeCosts2(MarketIndex mi, GameState gs, ProcessedData pd, ref List<string> csvLines)
+    {      
+        for (int i = 0; i < gs.ReceipeNodes.Count; i++)
+        {
+            var receipe = gs.ReceipeNodes[i];
+            receipe.InputsString = "";
+            foreach ( var x in receipe.Inputs )
+            {
+                receipe.InputsString += $"[{x.Ticker}]";
+            }
+            receipe.OutputsString = "";
+            foreach (var x in receipe.Outputs)
+            {
+                receipe.OutputsString += $"[{x.Ticker}]";
+            }
+        }
+
+        for (int i = 0; i < gs.ReceipeNodes.Count; i++)
+        {
+            var receipe = gs.ReceipeNodes[i];
+            receipe.TotalCostOutputToSell = 0.0f;
+            for (int iOutput = 0; iOutput < receipe.Outputs.Count; iOutput++)
+            {
+                var outputItem = receipe.Outputs[iOutput];
+                float outputPrice = pd.sellPrices[(int)mi][outputItem.Ticker];
+                if (outputPrice > 0)
+                {
+                    float priceAmt = outputPrice * outputItem.Amount;
+                    outputItem.OutputSellPrice = priceAmt;
+                    receipe.TotalCostOutputToSell += priceAmt;
+                }
+                else
+                {
+                    outputItem.OutputSellPrice = 0.0f;
+                }
+            }
+
+            for (int iInput = 0; iInput < receipe.Inputs.Count; iInput++)
+            {
+                var inputItem = receipe.Inputs[iInput];
+                float inputPrice = pd.buyPrices[(int)mi][inputItem.Ticker];
+                if (inputPrice > 0)
+                {
+                    float priceAmt = inputPrice * inputItem.Amount;
+                    inputItem.CostToBuyInput = priceAmt;
+                    inputItem.CanBuyInput = true;
+                }
+                else
+                {
+                    inputItem.CostToBuyInput = 0.0f;
+                    inputItem.CanBuyInput = false;
+                }
+
+                inputItem.inputReceipes = gs.ReceipeNodes.FindAll(r => r.OutputsString.Contains($"[{inputItem.Ticker}]"));
+            }
+        }
+
+        List<ReceipeNode> receipeNodeOwned = GetOwnedReceipes(gs);
+        for (int i = 0; i < receipeNodeOwned.Count; i++)
+        {
+            var receipe = receipeNodeOwned[i];
+            List<ReceipeNode> expandedList = GetExpandedReceipes(receipe, gs, pd);
+            string str = "";
+            foreach( var e in expandedList )
+            {
+                str += $", {e.RecipeName}";
+            }
+            Console.WriteLine($"{receipe.RecipeName}: {str}");
+        }
+
+
+
+        //for (int i = 0; i < receipeNodes.Count; i++)
+        //{
+        //    var receipe = receipeNodes[i];
+        //    for (int iOutput = 0; iOutput < receipe.Outputs.Count; iOutput++)
+        //    {
+        //        var outputItem = receipe.Outputs[iOutput];
+        //        for (int iInput = 0; iInput < receipe.Inputs.Count; iInput++)
+        //        {
+        //            var inputItem = receipe.Inputs[iInput];
+        //            float bestTimeToMakeInputHours = ConvertMsToHours(inputItem.BestTimeToMakeInputMs);
+        //            var building = pd.buildingCosts.First(r => r.Building == receipe.BuildingTicker);
+
+        //            if( !inputItem.BuildingsRequiredToMake.Contains(receipe.BuildingTicker) )
+        //            {
+        //                inputItem.BuildingsRequiredToMake.Add(receipe.BuildingTicker);
+        //            }
+        //            string buildings = "";
+        //            inputItem.BuildingsRequiredToMake.ForEach(r => buildings += $" {r}");
+        //            buildings = buildings.Trim();
+        //            string buildingStarter = GetIsBuildingStarter(receipe.BuildingTicker);
+
+        //            csvLines.Add(
+        //                $"{mi}, {receipe.RecipeName}, {outputItem.Ticker}, {outputItem.Amount}, {outputItem.OutputSellPrice}, " + 
+        //                $"{bestTimeToMakeInputHours}, {inputItem.Ticker}, {inputItem.Amount}, {inputItem.CostToBuyInput}, " +
+        //                $"{buildings}, {building.Pioneers}, {building.Settlers}, {building.Technicians}, {building.Engineers}, {building.Scientists}, {building.CostToBuy}, {buildingStarter}, "
+        //                );
+        //            // Profit, ProfitPerHour, MaxProfitOnMarket");
+
+        //            //receipe.Profit = receipe.CostOutputToSell - receipe.CostInputToMake;
+        //            //receipe.ProfitPerHour = receipe.Profit / numHours;
+        //            //receipe.MaxProfitOnMarket = CalcMaxProfitOnMarket(mi, gs, pd, receipe);
+        //        }
+
+        //        if (receipe.Inputs.Count == 0)
+        //        {
+        //            float numHours = ConvertMsToHours(receipe.TimeMs);
+        //            var building = pd.buildingCosts.First(r => r.Building == receipe.BuildingTicker);
+        //            string buildingStarter = GetIsBuildingStarter(receipe.BuildingTicker);
+
+        //            csvLines.Add(
+        //                $"{mi}, {receipe.RecipeName}, {outputItem.Ticker}, {outputItem.Amount}, {outputItem.OutputSellPrice}, {numHours}, " +
+        //                $"n/a, n/a, n/a, " +
+        //                $"{building.Building}, {building.Pioneers}, {building.Settlers}, {building.Technicians}, {building.Engineers}, {building.Scientists}, {building.CostToBuy}, {buildingStarter}, "
+        //                );
+        //        }
+        //    }
+        //}
+    }
+
+    private static List<string> LogMostProfitReceipes2(MarketIndex mi, List<ReceipeNode> receipeNode, ProcessedData pd, GameState gs)
+    {
+        List<ReceipeNode> receiptForProfit = new();
+        for (int i = 0; i < receipeNode.Count; i++)
+        {
+            var receipe = receipeNode[i];
+            if (receipe.Profit > 0 && receipe.TotalCostOutputToSell > 0 && receipe.CostInputToMake >= 0)
+            {
+                receiptForProfit.Add(receipe);
+            }
+        }
+        receiptForProfit.Sort((a, b) => b.ProfitPerHour.CompareTo(a.ProfitPerHour));
+
+        List<string> csvReceipeLines = new List<string>();
+        for (int i = 0; i < receiptForProfit.Count; i++)
+        {
+            var receipe = receiptForProfit[i];
+
+            var prod = gs.Productions.FirstOrDefault(r =>
+            {
+                var buildingNode = gs.BuildingsNodes.First(x => x.Name == r.Type);
+                return buildingNode.Ticker == receipe.BuildingTicker;
+            });
+            var hasBuilding = !string.IsNullOrEmpty(prod.PlanetId);
+            string buildingStarter = GetIsBuildingStarter(receipe.BuildingTicker);
+
+            var building = pd.buildingCosts.First(r => r.Building == receipe.BuildingTicker);
+            float hoursToMake = ConvertMsToHours(receipe.TimeMs);
+            csvReceipeLines.Add(
+                $"{mi}, {receipe.RecipeName}, {receipe.CostInputToMake:0}, {receipe.CostInputToBuy:0}, {receipe.TotalCostOutputToSell:0}, {receipe.Profit:0}, {receipe.ProfitPerHour:0}, {building.Building}, " +
+                $"{building.Pioneers}, {building.Settlers}, {building.Technicians}, {building.Engineers}, {building.Scientists}, {building.CostToBuy}, {buildingStarter}, {hoursToMake}, {receipe.MaxProfitOnMarket:0}");
+        }
+
+        return csvReceipeLines;
+    }
+
     public static void Process(string outPath, GameState gs)
     {
         ProcessedData pd = new();
@@ -755,7 +1130,21 @@
             CalcRecipeCosts(mi, gs, gs.ReceipeNodes, pd);
             csvReceipeLines.AddRange(LogMostProfitReceipes(mi, gs.ReceipeNodes, pd, gs));
         }
+        Console.WriteLine($"Writing {Path.Combine(outPath, $"processed-receipes.csv")}");
         File.WriteAllLines(Path.Combine(outPath, $"processed-receipes.csv"), csvReceipeLines);
-    }
 
+        List<string> csvReceipeLines2 = new List<string>();
+        csvReceipeLines2.Add("MarketIndex, RecipeName, OutputItem, OutputItemAmount, OutputSellPrice, HoursToMake, " +
+                        "InputItem, InputItemAmount, CostToBuyInput, " +
+                        "Building, Pioneers, Settlers, Technicians, Engineers, Scientists, CostToBuyBuilding, BuildingProfession, "
+                        );
+        foreach (int i in Enum.GetValues(typeof(MarketIndex)))
+        {
+            MarketIndex mi = (MarketIndex)i;
+            CalcRecipeCosts2(mi, gs, pd, ref csvReceipeLines2);
+            //csvReceipeLines.AddRange(LogMostProfitReceipes2(mi, gs.ReceipeNodes, pd, gs));
+        }
+        Console.WriteLine($"Writing {Path.Combine(outPath, $"processed-receipes2.csv")}");
+        File.WriteAllLines(Path.Combine(outPath, $"processed-receipes2.csv"), csvReceipeLines2);
+    }
 }

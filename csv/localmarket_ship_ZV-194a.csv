@@ -1,2 +1,4 @@
 ContractNaturalId,PlanetNaturalId,PlanetName,OriginPlanetNaturalId,OriginPlanetName,DestinationPlanetNaturalId,DestinationPlanetName,CargoWeight,CargoVolume,CreatorCompanyName,CreatorCompanyCode,PayoutPrice,PayoutCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+6913,ZV-194a,Nike,ZV-194a,Nike,ANT,Antares Station,499.5899963378906,183,Non-Refundable Industries,NFUN,3000,AIC,2,1664128284169,1664473884169,PENDING
+6911,ZV-194a,Nike,ZV-194a,Nike,ZV-759c,Deimos,220,88,Harvesters Combine,HARC,1600,AIC,2,1664125401934,1664211801934,PENDING
 

@@ -1,2 +1,6 @@
 ContractNaturalId,PlanetNaturalId,PlanetName,CreatorCompanyName,CreatorCompanyCode,MaterialName,MaterialTicker,MaterialCategory,MaterialWeight,MaterialVolume,MaterialAmount,Price,PriceCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+8463,AM-783c,Ementior,Unlimited Ltd.,UN,goldIronAlloy,BGO,37e95782d80aa1c1ded89f2c4b834dd0,19.31999969482422,1,20,28000,CIS,1,1664132712775,1664996712775,PENDING
+8462,AM-783c,Ementior,Unlimited Ltd.,UN,copperAluminiumAlloy,BRO,37e95782d80aa1c1ded89f2c4b834dd0,8.729999542236328,1,25,35000,CIS,1,1664132666456,1664996666456,PENDING
+8456,AM-783c,Ementior,Unlimited Ltd.,UN,copper,CU,cae48680d4c4e6f98d593a8c3778cb56,8.920000076293945,1,25,25000,CIS,1,1664116921580,1664548921580,PENDING
+8455,AM-783c,Ementior,Unlimited Ltd.,UN,copper,CU,cae48680d4c4e6f98d593a8c3778cb56,8.920000076293945,1,25,25000,CIS,1,1664116920305,1664548920305,PENDING
 

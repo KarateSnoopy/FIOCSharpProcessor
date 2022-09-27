@@ -347,10 +347,18 @@ struct SystemLinkNode
     public string right;
 }
 
-struct ReceipeNodeItem
+class ReceipeNodeItem
 {
-    public string Ticker;
+    public string Ticker = "";
     public int Amount;
+
+    public bool CanBuyInput = false;
+    public float CostToBuyInput;
+    public float OutputSellPrice;
+    public List<ReceipeNode> inputReceipes = new();
+    public float BestCostToMakeInput;
+    public float BestTimeToMakeInputMs;
+    public List<string> BuildingsRequiredToMake = new();
 }
 
 class ReceipeNode
@@ -361,10 +369,12 @@ class ReceipeNode
     public List<ReceipeNodeItem> Outputs = new();
     public long TimeMs;
 
+    public string InputsString = "";
+    public string OutputsString = "";
     public float CostInputToBuy;
     public bool CanMakeInput;
     public float CostInputToMake;
-    public float CostOutputToSell;
+    public float TotalCostOutputToSell;
     public float Profit;
     public float ProfitPerHour;
     public float MaxProfitOnMarket;
@@ -377,6 +387,19 @@ struct MakeCostNode
     public int Amount;
     public int MakeReceipeIndex;
     public float CostOutputToSell;
+}
+
+struct MakeCostNode2
+{
+    public string RecipeName;
+    public string OutputTicker;
+    public int OutputAmount;
+    public float OutputSellPrice;
+    public string InputItemTicker;
+    public int InputItemAmount;
+    public float CostToBuyInput;
+    public float HoursToMake;
+
 }
 
 struct ConnectionsNodeItem
@@ -533,6 +556,7 @@ class ProcessedData
     public Dictionary<string, float>[] sellPrices = new Dictionary<string, float>[6];
 
     public List<MakeCostNode> makeCostNodes = new();
+    public List<MakeCostNode2> makeCostNodes2 = new();
     public List<LocalMarketBuySellNodeProcessed> localMarketBuySellNodeProcessed = new();
     public List<BuildingCost> buildingCosts = new();
 }

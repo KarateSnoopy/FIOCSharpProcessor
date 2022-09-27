@@ -1,5 +1,4 @@
 ContractNaturalId,PlanetNaturalId,PlanetName,CreatorCompanyName,CreatorCompanyCode,MaterialName,MaterialTicker,MaterialCategory,MaterialWeight,MaterialVolume,MaterialAmount,Price,PriceCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
-6882,ZV-194a,Nike,SharaMetal,SHM1,limestone,LST,79f3917448cc4f6034ece865c41aea34,2.7300000190734863,1,183,17000,AIC,3,1664007472019,1664266672019,PENDING
 6871,ZV-194a,Nike,Knights of Cydonia,CYDO,basicStructuralElements,BSE,ef423f673d9e8c82043b4c5c63f6b55e,0.30000001192092896,0.5,20,30000,AIC,3,1663905625712,1664337625712,PENDING
 6870,ZV-194a,Nike,Knights of Cydonia,CYDO,basicBulkhead,BBH,ef423f673d9e8c82043b4c5c63f6b55e,0.5,0.800000011920929,20,40000,AIC,3,1663905588344,1664337588344,PENDING
 

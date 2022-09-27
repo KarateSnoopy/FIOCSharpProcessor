@@ -1,2 +1,3 @@
 ContractNaturalId,PlanetNaturalId,PlanetName,OriginPlanetNaturalId,OriginPlanetName,DestinationPlanetNaturalId,DestinationPlanetName,CargoWeight,CargoVolume,CreatorCompanyName,CreatorCompanyCode,PayoutPrice,PayoutCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
+39098,UV-351a,Katoa,UV-351a,Katoa,JS-299a,Nemesis,22,20,Hooli,HL,1500,CIS,1,1664203736330,1664462936330,A
 

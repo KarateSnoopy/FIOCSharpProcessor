@@ -1,5 +1,2 @@
 ContractNaturalId,PlanetNaturalId,PlanetName,CreatorCompanyName,CreatorCompanyCode,MaterialName,MaterialTicker,MaterialCategory,MaterialWeight,MaterialVolume,MaterialAmount,Price,PriceCurrency,DeliveryTime,CreationTimeEpochMs,ExpiryTimeEpochMs,MinimumRating
-17360,KW-688c,Etherwind,Trade And Craft,TAC,water,H2O,473218d3618453bf25d2cd0b5616a72f,0.20000000298023224,0.20000000298023224,10000,250000,NCC,3,1664006598839,1664438598839,C
-17349,KW-688c,Etherwind,Coldfire,CAST,siliconOre,SIO,4c0430b40fbf7fa175ed4a5a13682c6f,1.7899999618530273,1,100,5100,CIS,1,1663989167870,1664075567870,PENDING
-17348,KW-688c,Etherwind,Coldfire,CAST,oxygen,O,54dec1e42eba44dda423dd774393326a,1.1410000324249268,1,100,8000,CIS,1,1663989112668,1664075512668,PENDING
 
